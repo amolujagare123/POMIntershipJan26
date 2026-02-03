@@ -22,6 +22,5 @@ public class ForgotPasswordTest {
         forgotPassword.setEmail("amol@gmail.com");
         forgotPassword.clickReset();
 
-
     }
 }
