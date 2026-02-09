@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,6 +46,41 @@ public class AddClient {
         clientSurname.clear();
         clientSurname.sendKeys(surname);
     }
+
+    @FindBy(xpath = "//span[@id='select2-client_language-container']")
+    WebElement containerLanguage;
+
+    @FindBy(xpath = "//input[@aria-label='Search']")
+    WebElement search;
+
+
+    public void setLanguage(String language)
+    {
+        containerLanguage.click();
+        search.sendKeys(language);
+        driver.findElement(By.xpath("//li[normalize-space()='"+language+"']")).click();
+    }
+
+    @FindBy(xpath = "//span[@id='select2-client_country-container']")
+    WebElement containerCountry;
+
+    public void setCountry(String country)
+    {
+        containerCountry.click();
+        search.sendKeys(country);
+        driver.findElement(By.xpath("//li[normalize-space()='"+country+"']")).click();
+    }
+
+    @FindBy(xpath = "//span[@id='select2-client_gender-container']")
+    WebElement containerGender;
+
+    public void setGender(String gender)
+    {
+        containerGender.click();
+        driver.findElement(By.xpath("//li[normalize-space()='"+gender+"']")).click();
+    }
+
+
 
     // -------- Address (Text Fields) --------
     @FindBy(xpath = "//input[@id='client_address_1']")

@@ -1,7 +1,9 @@
 package regression;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.AddClient;
@@ -29,12 +31,15 @@ public class AddClientTest {
         Menu menu = new Menu(driver);
         menu.clickAddClient();
 
+
         // -------- Fill Add Client Form --------
         AddClient addClient = new AddClient(driver);
 
-        addClient.enterClientName("Amol");
-        addClient.enterClientSurname("Ujagare");
 
+
+       addClient.enterClientName("Asmita");
+        addClient.enterClientSurname("Ujagare");
+        addClient.setLanguage("English");
         addClient.enterAddress(
                 "Shivaji Nagar",
                 "Near Bus Stand",
@@ -42,6 +47,8 @@ public class AddClientTest {
                 "Maharashtra",
                 "411005"
         );
+        addClient.setCountry("India");
+        addClient.setGender("Female");
 
         addClient.enterContactInfo(
                 "020123456",
@@ -57,6 +64,22 @@ public class AddClientTest {
         );
 
         // -------- Save --------
-      //  addClient.clickSave();
+         addClient.clickSave();
+
+         String expected = "Client already exists!";
+
+        String actual = "";
+        try {
+            actual = driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
+        }
+        catch (Exception e)
+        {
+
+        }
+        System.out.println("expected="+expected);
+        System.out.println("actual=" +actual);
+
+        Assert.assertEquals(actual,expected,"incorrect or no error message");
+
     }
 }
